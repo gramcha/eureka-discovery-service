@@ -1,3 +1,4 @@
+
 node {
 	def app
 	def mavendocker
@@ -25,6 +26,9 @@ node {
 			junit 'target/surefire-reports/*.xml'
     }
     stage('Publishing to Dockerhub'){
+            echo "--------------------"
+            echo ${env.BUILD_NUMBER}
+            echo "--------------------"
     		docker.withRegistry([ credentialsId: "${dockerhub}", url: "" ]) {
             app.push("${env.BUILD_NUMBER}")
         }
